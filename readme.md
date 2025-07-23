@@ -8,6 +8,11 @@ $ docker compose run --rm web django-admin startproject new_project_name .
 $ docker compose run --rm web python manage.py migrate
 ```
 
+スーパーユーザー作成
+```
+$ docker compose run --rm web python manage.py createsuperuser
+```
+
 アプリ作成
 ```
 $ docker compose run --rm web python manage.py startapp new_app_name
