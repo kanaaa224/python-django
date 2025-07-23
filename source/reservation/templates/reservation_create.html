@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}予約作成{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1 class="display-6 mb-4">
+        <i class="fas fa-calendar-plus me-2"></i>予約作成
+    </h1>
+
+    {% if error %}
+    <div class="alert alert-danger mb-4">{{ error }}</div>
+    {% endif %}
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+            <h5 class="card-title mb-0">部屋情報</h5>
+        </div>
+        <div class="card-body">
+            <p class="mb-2"><strong>部屋名:</strong> {{ room.name }}</p>
+            <p class="mb-0"><strong>ホテルID:</strong> {{ room.hotel_id }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="price" class="form-label">価格:</label>
+                    <div class="input-group">
+                        <span id="priceDisplay" class="form-control">--- 円</span>
+                        <input type="hidden" id="price" name="price" required min="1">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="stay_date" class="form-label">宿泊日:</label>
+                    <input type="date" id="stay_date" name="stay_date" required class="form-control">
+                </div>
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-check me-2"></i>予約する
+                    </button>
+                    <a href="{% url 'hotel_detail' room.hotel_id %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>キャンセル
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setRandomPrice() {
+        const minPrice = 5000;
+        const maxPrice = 20000;
+
+        const randomPrice = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+
+        document.getElementById("priceDisplay").innerText = randomPrice + " 円";
+        document.getElementById("price").value = randomPrice;
+    }
+
+    document.getElementById("stay_date").addEventListener("change", setRandomPrice);
+</script>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}ホテル情報{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="mb-4">
+        <h2 class="display-6 mb-3">
+            <i class="fas fa-hotel me-2"></i>{{ hotel.name }}
+        </h2>
+        <p class="mb-4">都道府県: {{ hotel.prefecture }}</p>
+        <div class="btn-group mb-4">
+            <a href="{% url 'hotel_update' hotel.id %}" class="btn btn-outline-primary">
+                <i class="fas fa-edit me-1"></i>編集
+            </a>
+            <a href="{% url 'hotel_delete' hotel.id %}" class="btn btn-outline-danger">
+                <i class="fas fa-trash me-1"></i>削除
+            </a>
+            <a href="{% url 'hotel_list' %}" class="btn btn-outline-secondary">一覧に戻る</a>
+        </div>
+    </div>
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">
+                <i class="fas fa-door-open me-2"></i>部屋一覧
+            </h2>
+        </div>
+        <div class="list-group">
+            {% for room in hotel.rooms %}
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ room.name }}</span>
+                <div class="btn-group btn-group-sm">
+                    <a href="{% url 'reservation_create' room.id %} " class="btn btn-success">
+                        <i class="fas fa-calendar-plus me-1"></i>予約
+                    </a>
+                    <a href="{% url 'room_update' room.id %}" class="btn btn-outline-primary">
+                        <i class="fas fa-edit me-1"></i>編集
+                    </a>
+                    <a href="{% url 'room_delete' room.id %}" class="btn btn-outline-danger">
+                        <i class="fas fa-trash me-1"></i>削除
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{% url 'room_create' hotel.id %}" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus me-1"></i>部屋を追加
+    </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}宿泊施設削除{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1 class="display-6 mb-4">
+        <i class="fas fa-trash me-2"></i>ホテルを削除
+    </h1>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-3">以下のホテルを削除しますか？</h5>
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item"><strong>ホテル名:</strong> {{ hotel.name }}</li>
+                <li class="list-group-item"><strong>都道府県:</strong> {{ hotel.prefecture }}</li>
+            </ul>
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>この操作は取り消せません。
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <form method="post" action="{% url 'hotel_delete' pk=hotel.id %}" class="me-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash me-2"></i>削除する
+            </button>
+        </form>
+        <a href="{% url 'hotel_detail' pk=hotel.id %}" class="btn btn-outline-secondary">
+            <i class="fas fa-times me-2"></i>キャンセル
+        </a>
+    </div>
+</div>
+
+{% endblock %}

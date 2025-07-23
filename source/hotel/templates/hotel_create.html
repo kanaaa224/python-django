@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}宿泊施設作成{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1 class="display-6 mb-4">新しいホテルを追加</h1>
+
+    {% if error %}
+    <div class="alert alert-danger mb-4">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="{% url 'hotel_create' %}" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">ホテル名:</label>
+            <input type="text" id="name" name="name" value="{{ name }}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="prefecture" class="form-label">都道府県:</label>
+            <input type="text" id="prefecture" name="prefecture" value="{{ prefecture }}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i>保存
+            </button>
+            <a href="{% url 'hotel_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>ホテル一覧に戻る
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

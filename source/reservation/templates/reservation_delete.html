@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}予約削除{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h2 class="display-6 mb-4">
+        <i class="fas fa-calendar-times me-2"></i>予約情報を削除
+    </h2>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title mb-3">以下の予約を削除しますか？</h5>
+            <p class="mb-3">
+                <strong>宿泊日:</strong> {{reservation.stay_date}}<br>
+                <strong>部屋名:</strong> {{reservation.room_name}}
+            </p>
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>この操作は取り消せません。
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex">
+        <form method="post" class="me-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash me-2"></i>削除
+            </button>
+        </form>
+        <a href="{% url 'reservation_list' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-times me-2"></i>キャンセル
+        </a>
+    </div>
+</div>
+
+{% endblock %}
